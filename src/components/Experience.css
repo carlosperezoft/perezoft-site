@@ -1,0 +1,193 @@
+.experience {
+    background: var(--bg-primary);
+}
+
+.exp__timeline {
+    position: relative;
+    padding-left: 36px;
+}
+
+.exp__timeline::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple), transparent);
+    border-radius: 1px;
+}
+
+.exp__item {
+    position: relative;
+    margin-bottom: 32px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease calc(var(--delay, 0s)), transform 0.6s ease calc(var(--delay, 0s));
+}
+
+.exp--visible .exp__item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.exp__dot {
+    position: absolute;
+    left: -30px;
+    top: 20px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.exp__dot-inner {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--text-muted);
+}
+
+.exp__dot-inner--active {
+    background: var(--accent-blue);
+    box-shadow: 0 0 8px var(--accent-blue);
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.exp__card {
+    position: relative;
+}
+
+.exp__current-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: var(--accent-cyan);
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.exp__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.exp__role {
+    font-family: var(--font-primary);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.exp__company {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    color: var(--accent-cyan);
+    font-weight: 500;
+}
+
+.exp__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.exp__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.exp__desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 16px;
+}
+
+.exp__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+@media (max-width: 600px) {
+    .exp__meta {
+        align-items: flex-start;
+    }
+}
+
+/* Education section */
+.exp__education {
+    margin-top: 60px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+}
+
+.exp__edu-title {
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 28px;
+}
+
+.exp__edu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.exp__edu-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.exp__edu-degree {
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.exp__edu-school {
+    font-size: 0.85rem;
+    color: var(--accent-cyan);
+    font-weight: 500;
+}
+
+.exp__edu-year {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .exp__edu-grid {
+        grid-template-columns: 1fr;
+    }
+}
