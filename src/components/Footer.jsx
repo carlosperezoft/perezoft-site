@@ -1,20 +1,10 @@
-import { Code2, Github, Linkedin, Mail, Heart } from 'lucide-react';
+import { Code2, Heart } from 'lucide-react';
+import { NAV_LINKS } from '../constants/navigation';
+import { SOCIAL_LINKS } from '../constants/socials';
+import scrollToSection from '../utils/scrollToSection';
 import './Footer.css';
 
-const FOOTER_LINKS = [
-    { label: 'About', href: '#about' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Services', href: '#services' },
-    { label: 'Contact', href: '#contact' },
-];
-
 export default function Footer() {
-    const scrollTo = (href) => {
-        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-    };
-
     return (
         <footer className="footer">
             <div className="footer__glow" />
@@ -30,27 +20,23 @@ export default function Footer() {
                         Crafting digital products that make a difference.
                     </p>
                     <div className="footer__socials">
-                        <a href="https://github.com/carlosperezoft" target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="GitHub">
-                            <Github size={16} />
-                        </a>
-                        <a href="https://www.linkedin.com/in/carlos-alberto-perez-moncada/" target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="LinkedIn">
-                            <Linkedin size={16} />
-                        </a>
-                        <a href="mailto:contact@perezoft.com" className="footer__social" aria-label="Email">
-                            <Mail size={16} />
-                        </a>
+                        {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
+                            <a href={href} target="_blank" rel="noopener noreferrer" className="footer__social" aria-label={label} key={label}>
+                                <Icon size={16} />
+                            </a>
+                        ))}
                     </div>
                 </div>
 
                 <div className="footer__nav">
                     <h4 className="footer__nav-title">Navigation</h4>
                     <ul className="footer__nav-links">
-                        {FOOTER_LINKS.map((link) => (
+                        {NAV_LINKS.map((link) => (
                             <li key={link.label}>
                                 <a
                                     href={link.href}
                                     className="footer__nav-link"
-                                    onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
+                                    onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
                                 >
                                     {link.label}
                                 </a>
@@ -68,7 +54,7 @@ export default function Footer() {
                     <a
                         href="#contact"
                         className="btn btn-primary footer__cta"
-                        onClick={(e) => { e.preventDefault(); scrollTo('#contact'); }}
+                        onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
                     >
                         Get in Touch
                     </a>

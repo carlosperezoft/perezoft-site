@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
 import { Sparkles, Target, Users, Zap } from 'lucide-react';
+import useInView from '../hooks/useInView';
+import SectionHeader from './SectionHeader';
 import './About.css';
 
 const HIGHLIGHTS = [
@@ -10,16 +11,7 @@ const HIGHLIGHTS = [
 ];
 
 export default function About() {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) sectionRef.current?.classList.add('about--visible'); },
-            { threshold: 0.1 }
-        );
-        if (sectionRef.current) observer.observe(sectionRef.current);
-        return () => observer.disconnect();
-    }, []);
+    const sectionRef = useInView('about--visible');
 
     return (
         <section id="about" className="section about" ref={sectionRef}>
@@ -27,11 +19,11 @@ export default function About() {
                 <div className="about__inner">
                     {/* Left: text */}
                     <div className="about__text">
-                        <p className="section-label">About Me</p>
-                        <h2 className="section-title">
-                            Building enterprise software <span className="gradient-text">that matters</span>
-                        </h2>
-                        <div className="section-divider" />
+                        <SectionHeader
+                            label="About Me"
+                            title="Building enterprise software"
+                            highlight="that matters"
+                        />
                         <p className="about__bio">
                             I'm <strong>Carlos Alberto Perez Moncada</strong>, a <strong>Systems Engineer</strong> and
                             {' '}<strong>Master in Engineering (Informatics)</strong> from the Universidad de Antioquia, with a

@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
 import { ExternalLink, Github, Globe } from 'lucide-react';
+import useInView from '../hooks/useInView';
+import SectionHeader from './SectionHeader';
 import './Projects.css';
 
 const PROJECTS = [
@@ -46,23 +47,12 @@ const PROJECTS = [
 ];
 
 export default function Projects() {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) sectionRef.current?.classList.add('projects--visible'); },
-            { threshold: 0.1 }
-        );
-        if (sectionRef.current) observer.observe(sectionRef.current);
-        return () => observer.disconnect();
-    }, []);
+    const sectionRef = useInView('projects--visible');
 
     return (
         <section id="projects" className="section projects" ref={sectionRef}>
             <div className="container">
-                <p className="section-label">What I've built</p>
-                <h2 className="section-title">Featured <span className="gradient-text">Projects</span></h2>
-                <div className="section-divider" />
+                <SectionHeader label="What I've built" title="Featured" highlight="Projects" />
 
                 <div className="projects__grid">
                     {PROJECTS.map((project, i) => (
@@ -93,29 +83,23 @@ export default function Projects() {
 
                             <div className="projects__card-body">
                                 <p className="projects__card-desc">{project.description}</p>
-                                <div className="projects__tags">
+                                <div className="projects__card-tags">
                                     {project.tags.map((t) => (
                                         <span key={t} className="tech-badge">{t}</span>
                                     ))}
                                 </div>
-                                <a href={project.github} target="_blank" rel="noopener noreferrer" className="projects__view-btn">
-                                    View Project <ExternalLink size={13} />
+                                <a
+                                    href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="projects__card-cta"
+                                >
+                                    <ExternalLink size={14} />
+                                    View Project
                                 </a>
                             </div>
                         </div>
                     ))}
-                </div>
-
-                <div className="projects__github-cta">
-                    <a
-                        href="https://github.com/carlosperezoft"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-outline"
-                    >
-                        <Github size={16} />
-                        See more on GitHub
-                    </a>
                 </div>
             </div>
         </section>

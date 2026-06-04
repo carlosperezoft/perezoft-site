@@ -1,29 +1,14 @@
-import { useEffect, useRef } from 'react';
-import { ArrowDown, Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import { ArrowDown, ExternalLink, Mail } from 'lucide-react';
+import useInView from '../hooks/useInView';
+import scrollToSection from '../utils/scrollToSection';
+import { SOCIAL_LINKS } from '../constants/socials';
 import profileImg from '../assets/profile.png';
 import './Hero.css';
 
 const TECH_STACK = ['Java', 'Spring Boot', 'React JS', 'Microservices', 'GraphQL', 'Docker'];
 
 export default function Hero() {
-    const heroRef = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    heroRef.current?.classList.add('hero--visible');
-                }
-            },
-            { threshold: 0.1 }
-        );
-        if (heroRef.current) observer.observe(heroRef.current);
-        return () => observer.disconnect();
-    }, []);
-
-    const scrollToSection = (id) => {
-        document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
-    };
+    const heroRef = useInView('hero--visible');
 
     return (
         <section id="hero" className="hero" ref={heroRef}>
@@ -85,15 +70,11 @@ export default function Hero() {
 
                     {/* Social links */}
                     <div className="hero__socials">
-                        <a href="https://github.com/carlosperezoft" target="_blank" rel="noopener noreferrer" className="hero__social-link" aria-label="GitHub">
-                            <Github size={20} />
-                        </a>
-                        <a href="https://www.linkedin.com/in/carlos-alberto-perez-moncada/" target="_blank" rel="noopener noreferrer" className="hero__social-link" aria-label="LinkedIn">
-                            <Linkedin size={20} />
-                        </a>
-                        <a href="mailto:contact@perezoft.com" className="hero__social-link" aria-label="Email">
-                            <Mail size={20} />
-                        </a>
+                        {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
+                            <a href={href} target="_blank" rel="noopener noreferrer" className="hero__social-link" aria-label={label} key={label}>
+                                <Icon size={20} />
+                            </a>
+                        ))}
                         <div className="hero__social-divider" />
                         <span className="hero__social-label">Medellín, Colombia</span>
                     </div>
@@ -104,29 +85,14 @@ export default function Hero() {
                     <div className="hero__image-ring" />
                     <div className="hero__image-ring hero__image-ring--2" />
                     <div className="hero__image-container animate-float">
-                        <img src={profileImg} alt="Carlos Alberto Perez Moncada - PEREZOFT" className="hero__image" />
-                        <div className="hero__image-overlay" />
-                    </div>
-
-                    {/* Floating cards */}
-                    <div className="hero__float-card hero__float-card--1">
-                        <span className="hero__float-card-num">10+</span>
-                        <span className="hero__float-card-label">Years Exp.</span>
-                    </div>
-                    <div className="hero__float-card hero__float-card--2">
-                        <span className="hero__float-card-num">MSc</span>
-                        <span className="hero__float-card-label">Engineering</span>
+                        <img src={profileImg} alt="Carlos Perez Moncada" className="hero__image" />
                     </div>
                 </div>
             </div>
 
-            {/* Scroll hint */}
-            <button
-                className="hero__scroll-hint"
-                onClick={() => scrollToSection('#about')}
-                aria-label="Scroll down"
-            >
-                <ArrowDown size={20} />
+            {/* Scroll indicator */}
+            <button className="hero__scroll" onClick={() => scrollToSection('#about')} aria-label="Scroll down">
+                <ArrowDown size={18} />
             </button>
         </section>
     );

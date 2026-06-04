@@ -1,33 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
-import { Send, MapPin, Mail, Linkedin, Github, Twitter } from 'lucide-react';
+import { useState } from 'react';
+import { Send, MapPin, Mail, Twitter } from 'lucide-react';
+import useInView from '../hooks/useInView';
+import SectionHeader from './SectionHeader';
+import { SOCIAL_LINKS } from '../constants/socials';
 import './Contact.css';
 
 const SOCIALS = [
-    { icon: Github, label: 'GitHub', href: 'https://github.com/carlosperezoft' },
-    { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/carlos-alberto-perez-moncada/' },
+    ...SOCIAL_LINKS,
     { icon: Twitter, label: 'Twitter / X', href: 'https://twitter.com/perezoft' },
-    { icon: Mail, label: 'Email', href: 'mailto:contact@perezoft.com' },
 ];
 
 export default function Contact() {
-    const sectionRef = useRef(null);
+    const sectionRef = useInView('contact--visible');
     const [form, setForm] = useState({ name: '', email: '', service: '', message: '' });
     const [sent, setSent] = useState(false);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) sectionRef.current?.classList.add('contact--visible'); },
-            { threshold: 0.1 }
-        );
-        if (sectionRef.current) observer.observe(sectionRef.current);
-        return () => observer.disconnect();
-    }, []);
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // In production, connect to a backend or service like EmailJS/Formspree
         setSent(true);
         setTimeout(() => setSent(false), 4000);
         setForm({ name: '', email: '', service: '', message: '' });
@@ -36,9 +27,7 @@ export default function Contact() {
     return (
         <section id="contact" className="section contact" ref={sectionRef}>
             <div className="container">
-                <p className="section-label">Get in touch</p>
-                <h2 className="section-title">Let's build something <span className="gradient-text">great.</span></h2>
-                <div className="section-divider" />
+                <SectionHeader label="Get in touch" title="Let's build something" highlight="great." />
 
                 <div className="contact__inner">
                     {/* Left info */}
