@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
 import { Globe, Server, Cpu, Terminal, Cloud, Headphones } from 'lucide-react';
+import useInView from '../hooks/useInView';
+import SectionHeader from './SectionHeader';
 import './Services.css';
 
 const SERVICES = [
@@ -60,23 +61,12 @@ const SERVICES = [
 ];
 
 export default function Services() {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) sectionRef.current?.classList.add('services--visible'); },
-            { threshold: 0.1 }
-        );
-        if (sectionRef.current) observer.observe(sectionRef.current);
-        return () => observer.disconnect();
-    }, []);
+    const sectionRef = useInView('services--visible');
 
     return (
         <section id="services" className="section services" ref={sectionRef}>
             <div className="container">
-                <p className="section-label">What I offer</p>
-                <h2 className="section-title">My <span className="gradient-text">Services</span></h2>
-                <div className="section-divider" />
+                <SectionHeader label="What I offer" title="My" highlight="Services" />
                 <p className="section-subtitle">
                     From enterprise Java backends to modern React frontends — specialized software solutions
                     tailored to your business needs and technology goals.

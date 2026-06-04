@@ -1,4 +1,6 @@
 import { useEffect, useRef } from 'react';
+import useInView from '../hooks/useInView';
+import SectionHeader from './SectionHeader';
 import './Skills.css';
 
 const SKILLS = [
@@ -45,14 +47,13 @@ const SKILLS = [
 ];
 
 export default function Skills() {
-    const sectionRef = useRef(null);
+    const sectionRef = useInView('skills--visible');
     const barsRef = useRef([]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    sectionRef.current?.classList.add('skills--visible');
                     barsRef.current.forEach((bar, i) => {
                         setTimeout(() => {
                             if (bar) bar.style.width = bar.dataset.width;
@@ -64,16 +65,14 @@ export default function Skills() {
         );
         if (sectionRef.current) observer.observe(sectionRef.current);
         return () => observer.disconnect();
-    }, []);
+    }, [sectionRef]);
 
     let barIndex = 0;
 
     return (
         <section id="skills" className="section skills" ref={sectionRef}>
             <div className="container">
-                <p className="section-label">What I know</p>
-                <h2 className="section-title">Technical <span className="gradient-text">Skills</span></h2>
-                <div className="section-divider" />
+                <SectionHeader label="What I know" title="Technical" highlight="Skills" />
 
                 <div className="skills__grid">
                     {SKILLS.map(({ category, color, items }) => (

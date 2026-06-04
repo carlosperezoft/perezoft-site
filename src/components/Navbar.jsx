@@ -1,15 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Code2 } from 'lucide-react';
+import { NAV_LINKS } from '../constants/navigation';
+import scrollToSection from '../utils/scrollToSection';
 import './Navbar.css';
-
-const NAV_LINKS = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Services', href: '#services' },
-  { label: 'Contact', href: '#contact' },
-];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -23,8 +16,7 @@ export default function Navbar() {
 
   const handleNavClick = (href) => {
     setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    scrollToSection(href);
   };
 
   return (

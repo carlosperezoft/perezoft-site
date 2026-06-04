@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import useInView from '../hooks/useInView';
+import SectionHeader from './SectionHeader';
 import './Experience.css';
 
 const EXPERIENCE = [
@@ -36,23 +37,12 @@ const EXPERIENCE = [
 ];
 
 export default function Experience() {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) sectionRef.current?.classList.add('exp--visible'); },
-            { threshold: 0.1 }
-        );
-        if (sectionRef.current) observer.observe(sectionRef.current);
-        return () => observer.disconnect();
-    }, []);
+    const sectionRef = useInView('exp--visible');
 
     return (
         <section id="experience" className="section experience" ref={sectionRef}>
             <div className="container">
-                <p className="section-label">Career Path</p>
-                <h2 className="section-title">Professional <span className="gradient-text">Experience</span></h2>
-                <div className="section-divider" />
+                <SectionHeader label="Career Path" title="Professional" highlight="Experience" />
 
                 <div className="exp__timeline">
                     {EXPERIENCE.map((job, i) => (
