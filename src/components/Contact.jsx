@@ -12,7 +12,8 @@ const SOCIALS = [
 export default function Contact() {
     const sectionRef = useRef(null);
     const [form, setForm] = useState({ name: '', email: '', service: '', message: '' });
-    const [sent, setSent] = useState(false);
+    const [status, setStatus] = useState('idle');
+    const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -25,12 +26,26 @@ export default function Contact() {
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // In production, connect to a backend or service like EmailJS/Formspree
-        setSent(true);
-        setTimeout(() => setSent(false), 4000);
-        setForm({ name: '', email: '', service: '', message: '' });
+        setStatus('sending');
+        setErrorMsg('');
+
+        try {
+            // TODO: connect to a backend or service like EmailJS/Formspree
+            await new Promise((resolve) => setTimeout(resolve, 600));
+            setStatus('sent');
+            setForm({ name: '', email: '', service: '', message: '' });
+            setTimeout(() => setStatus('idle'), 4000);
+        } catch (error) {
+            console.error('Contact form submission failed:', error);
+            setStatus('error');
+            setErrorMsg(
+                error instanceof Error
+                    ? error.message
+                    : 'Something went wrong. Please try again.'
+            );
+        }
     };
 
     return (
@@ -135,8 +150,20 @@ export default function Contact() {
                             />
                         </div>
 
-                        <button type="submit" className="btn btn-primary contact__submit">
-                            {sent ? '✓ Message Sent!' : <><Send size={16} /> Send Message</>}
+                        {status === 'error' && (
+                            <p className="contact__error" role="alert">
+                                {errorMsg}
+                            </p>
+                        )}
+
+                        <button
+                            type="submit"
+                            className="btn btn-primary contact__submit"
+                            disabled={status === 'sending'}
+                        >
+                            {status === 'sending' && 'Sending...'}
+                            {status === 'sent' && '✓ Message Sent!'}
+                            {status !== 'sending' && status !== 'sent' && <><Send size={16} /> Send Message</>}
                         </button>
                     </form>
                 </div>

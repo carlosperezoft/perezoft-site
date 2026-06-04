@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowDown, Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 import profileImg from '../assets/profile.png';
 import './Hero.css';
@@ -7,6 +7,7 @@ const TECH_STACK = ['Java', 'Spring Boot', 'React JS', 'Microservices', 'GraphQL
 
 export default function Hero() {
     const heroRef = useRef(null);
+    const [imgError, setImgError] = useState(false);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -104,7 +105,20 @@ export default function Hero() {
                     <div className="hero__image-ring" />
                     <div className="hero__image-ring hero__image-ring--2" />
                     <div className="hero__image-container animate-float">
-                        <img src={profileImg} alt="Carlos Alberto Perez Moncada - PEREZOFT" className="hero__image" />
+                        {imgError ? (
+                            <div
+                                className="hero__image hero__image--fallback"
+                                role="img"
+                                aria-label="Carlos Alberto Perez Moncada - PEREZOFT"
+                            />
+                        ) : (
+                            <img
+                                src={profileImg}
+                                alt="Carlos Alberto Perez Moncada - PEREZOFT"
+                                className="hero__image"
+                                onError={() => setImgError(true)}
+                            />
+                        )}
                         <div className="hero__image-overlay" />
                     </div>
 
