@@ -91,7 +91,7 @@ export default function Hero() {
                         <a href="https://www.linkedin.com/in/carlos-alberto-perez-moncada/" target="_blank" rel="noopener noreferrer" className="hero__social-link" aria-label="LinkedIn">
                             <Linkedin size={20} />
                         </a>
-                        <a href="mailto:contact@perezoft.com" className="hero__social-link" aria-label="Email">
+                        <a href="mailto:carlos.perezoft@gmail.com" className="hero__social-link" aria-label="Email">
                             <Mail size={20} />
                         </a>
                         <div className="hero__social-divider" />

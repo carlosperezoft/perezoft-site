@@ -6,7 +6,7 @@ const SOCIALS = [
     { icon: Github, label: 'GitHub', href: 'https://github.com/carlosperezoft' },
     { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/carlos-alberto-perez-moncada/' },
     { icon: Twitter, label: 'Twitter / X', href: 'https://twitter.com/perezoft' },
-    { icon: Mail, label: 'Email', href: 'mailto:contact@perezoft.com' },
+    { icon: Mail, label: 'Email', href: 'mailto:carlos.perezoft@gmail.com' },
 ];
 
 export default function Contact() {
@@ -54,7 +54,7 @@ export default function Contact() {
                                 <div className="contact__detail-icon">
                                     <Mail size={16} />
                                 </div>
-                                <span>contact@perezoft.com</span>
+                                <span>carlos.perezoft@gmail.com</span>
                             </div>
                             <div className="contact__detail">
                                 <div className="contact__detail-icon">

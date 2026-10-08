@@ -36,7 +36,7 @@ export default function Footer() {
                         <a href="https://www.linkedin.com/in/carlos-alberto-perez-moncada/" target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="LinkedIn">
                             <Linkedin size={16} />
                         </a>
-                        <a href="mailto:contact@perezoft.com" className="footer__social" aria-label="Email">
+                        <a href="mailto:carlos.perezoft@gmail.com" className="footer__social" aria-label="Email">
                             <Mail size={16} />
                         </a>
                     </div>
@@ -61,7 +61,7 @@ export default function Footer() {
 
                 <div className="footer__contact">
                     <h4 className="footer__nav-title">Contact</h4>
-                    <p className="footer__contact-email">contact@perezoft.com</p>
+                    <p className="footer__contact-email">carlos.perezoft@gmail.com</p>
                     <p className="footer__contact-note">
                         Available for freelance<br />& consulting work.
                     </p>
