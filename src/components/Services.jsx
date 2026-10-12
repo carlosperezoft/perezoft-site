@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { Globe, Server, Cpu, Terminal, Cloud, Headphones } from 'lucide-react';
+import { Globe, Server, Bot, Cloud, Headphones } from 'lucide-react';
+import N8nIcon from './icons/N8nIcon';
 import { useLanguage } from '../context/LanguageContext';
 import './Services.css';
 
-const SERVICE_ICONS = [Server, Cpu, Globe, Terminal, Cloud, Headphones];
+const SERVICE_ICONS = [Server, Bot, Globe, N8nIcon, Cloud, Headphones];
 
 export default function Services() {
     const { t } = useLanguage();

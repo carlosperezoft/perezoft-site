@@ -13,9 +13,9 @@ export default function Skills() {
             color: '#8b5cf6',
             items: [
                 { name: 'Java / Spring Boot', level: 97 },
-                { name: 'Microservices Architecture', level: 93 },
-                { name: 'GraphQL APIs', level: 88 },
-                { name: 'Node.js', level: 78 },
+                { name: 'AI Agents & LLM Solutions', level: 94 },
+                { name: 'n8n Workflow Automation', level: 91 },
+                { name: 'Node.js & APIs', level: 85 },
             ],
         },
         {

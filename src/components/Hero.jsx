@@ -5,7 +5,7 @@ import BookingButton from './BookingButton';
 import { useLanguage } from '../context/LanguageContext';
 import './Hero.css';
 
-const TECH_STACK = ['Java', 'Spring Boot', 'React JS', 'Microservices', 'GraphQL', 'Docker'];
+const TECH_STACK = ['Java', 'Spring Boot', 'React JS', 'AI Agents & LLMs', 'n8n Automation', 'Docker'];
 
 export default function Hero() {
     const { t } = useLanguage();
