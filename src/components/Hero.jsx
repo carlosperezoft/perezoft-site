@@ -79,7 +79,7 @@ export default function Hero() {
                             {t.hero.bookCall}
                         </BookingButton>
                         <button
-                            className="btn btn-ghost"
+                            className="btn btn-outline"
                             onClick={() => scrollToSection('#projects')}
                         >
                             <ExternalLink size={16} />

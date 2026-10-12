@@ -38,6 +38,10 @@
 
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Google Calendar scheduling variables */
+  --gm3-sys-color-surface: #ffffff;
+  --gm3-sys-color-on-primary: #ffffff;
 }
 
 /* ─── RESET & BASE ───────────────────────────────────────────── */
@@ -171,15 +175,18 @@ button {
 }
 
 .btn-outline {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1.5px solid var(--border-accent);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(8px);
 }
 
 .btn-outline:hover {
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(59, 130, 246, 0.15);
   border-color: var(--accent-blue);
+  color: #ffffff;
   transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25);
 }
 
 /* ─── TECH BADGE ─────────────────────────────────────────────── */
@@ -296,3 +303,43 @@ button {
     padding: 0 16px;
   }
 }
+
+/* ─── GOOGLE CALENDAR APPOINTMENT POPUP OVERLAY & WHITE BG ───── */
+.hur54b {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  z-index: 99999 !important;
+}
+
+.mmGMM,
+iframe.mmGMM {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+}
+
+.Xfsokf {
+  background-color: #1f2937 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  z-index: 100000 !important;
+  transition: var(--transition);
+}
+
+.Xfsokf:hover {
+  background-color: #374151 !important;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .hur54b {
+    padding: 24px 12px !important;
+  }
+
+  .Xfsokf {
+    top: 12px !important;
+    right: 12px !important;
+  }
+}
+
