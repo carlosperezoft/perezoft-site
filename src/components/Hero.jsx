@@ -1,11 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { ArrowDown, Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 import profileImg from '../assets/profile.png';
+import BookingButton from './BookingButton';
+import { useLanguage } from '../context/LanguageContext';
 import './Hero.css';
 
 const TECH_STACK = ['Java', 'Spring Boot', 'React JS', 'Microservices', 'GraphQL', 'Docker'];
 
 export default function Hero() {
+    const { t } = useLanguage();
     const heroRef = useRef(null);
 
     useEffect(() => {
@@ -38,24 +41,22 @@ export default function Hero() {
                 <div className="hero__content">
                     <div className="hero__eyebrow">
                         <span className="hero__status-dot" />
-                        <span>Available for new projects</span>
+                        <span>{t.hero.available}</span>
                     </div>
 
                     <h1 className="hero__name">
-                        Hi, I'm <span className="gradient-text">Carlos Perez</span><br />
+                        {t.hero.greeting} <span className="gradient-text">Carlos Perez</span><br />
                         <span className="gradient-text" style={{ fontSize: 'clamp(1.5rem,3vw,2.2rem)', fontWeight: 800 }}>Moncada</span>
                     </h1>
 
                     <div className="hero__title">
                         <span className="hero__title-prefix">{'<'}</span>
-                        <span className="gradient-text-purple hero__title-role">Technical Leader & Software Architect</span>
+                        <span className="gradient-text-purple hero__title-role">{t.hero.role}</span>
                         <span className="hero__title-prefix">{' />'}</span>
                     </div>
 
                     <p className="hero__description">
-                        Systems Engineer & <strong>Master in Engineering</strong> from Universidad de Antioquia.
-                        Specialist in business software solutions, software architecture, and enterprise integrations.
-                        Building robust, scalable systems that power real businesses.
+                        {t.hero.description}
                     </p>
 
                     {/* Tech badges */}
@@ -72,14 +73,17 @@ export default function Hero() {
                             onClick={() => scrollToSection('#contact')}
                         >
                             <Mail size={16} />
-                            Hire Me
+                            {t.hero.hireMe}
                         </button>
+                        <BookingButton className="btn btn-outline">
+                            {t.hero.bookCall}
+                        </BookingButton>
                         <button
-                            className="btn btn-outline"
+                            className="btn btn-ghost"
                             onClick={() => scrollToSection('#projects')}
                         >
                             <ExternalLink size={16} />
-                            View Projects
+                            {t.hero.viewProjects}
                         </button>
                     </div>
 
@@ -95,7 +99,7 @@ export default function Hero() {
                             <Mail size={20} />
                         </a>
                         <div className="hero__social-divider" />
-                        <span className="hero__social-label">Medellín, Colombia</span>
+                        <span className="hero__social-label">{t.hero.location}</span>
                     </div>
                 </div>
 
@@ -108,26 +112,21 @@ export default function Hero() {
                         <div className="hero__image-overlay" />
                     </div>
 
-                    {/* Floating cards */}
-                    <div className="hero__float-card hero__float-card--1">
-                        <span className="hero__float-card-num">10+</span>
-                        <span className="hero__float-card-label">Years Exp.</span>
-                    </div>
-                    <div className="hero__float-card hero__float-card--2">
-                        <span className="hero__float-card-num">MSc</span>
-                        <span className="hero__float-card-label">Engineering</span>
+                    {/* Floating badge */}
+                    <div className="hero__float-badge">
+                        <span className="hero__float-badge-icon">⚡</span>
+                        <div>
+                            <div className="hero__float-badge-title">10+ Years</div>
+                            <div className="hero__float-badge-sub">Enterprise Experience</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* Scroll hint */}
-            <button
-                className="hero__scroll-hint"
-                onClick={() => scrollToSection('#about')}
-                aria-label="Scroll down"
-            >
-                <ArrowDown size={20} />
-            </button>
+            <div className="hero__scroll-indicator" onClick={() => scrollToSection('#about')} style={{ cursor: 'pointer' }}>
+                <span className="hero__scroll-text">Scroll down</span>
+                <ArrowDown size={14} className="hero__scroll-arrow" />
+            </div>
         </section>
     );
 }

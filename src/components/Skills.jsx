@@ -1,52 +1,54 @@
 import { useEffect, useRef } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import './Skills.css';
 
-const SKILLS = [
-    {
-        category: 'Backend',
-        color: '#8b5cf6',
-        items: [
-            { name: 'Java / Spring Boot', level: 97 },
-            { name: 'Microservices Architecture', level: 93 },
-            { name: 'GraphQL APIs', level: 88 },
-            { name: 'Node.js', level: 78 },
-        ],
-    },
-    {
-        category: 'Frontend',
-        color: '#3b82f6',
-        items: [
-            { name: 'React JS', level: 90 },
-            { name: 'JavaScript / ES6+', level: 92 },
-            { name: 'HTML5 / CSS3', level: 88 },
-            { name: 'Web Design', level: 78 },
-        ],
-    },
-    {
-        category: 'Architecture & Engineering',
-        color: '#06b6d4',
-        items: [
-            { name: 'Software Architecture', level: 95 },
-            { name: 'Business Software Solutions', level: 94 },
-            { name: 'Enterprise Integration', level: 90 },
-            { name: 'Technical Leadership', level: 92 },
-        ],
-    },
-    {
-        category: 'DevOps & Tools',
-        color: '#10b981',
-        items: [
-            { name: 'Docker / Containers', level: 85 },
-            { name: 'Git / GitHub', level: 95 },
-            { name: 'Cloud Services', level: 80 },
-            { name: 'Agile / Scrum', level: 90 },
-        ],
-    },
-];
-
 export default function Skills() {
+    const { t } = useLanguage();
     const sectionRef = useRef(null);
     const barsRef = useRef([]);
+
+    const skillsData = [
+        {
+            category: t.skills.categories.backend,
+            color: '#8b5cf6',
+            items: [
+                { name: 'Java / Spring Boot', level: 97 },
+                { name: 'Microservices Architecture', level: 93 },
+                { name: 'GraphQL APIs', level: 88 },
+                { name: 'Node.js', level: 78 },
+            ],
+        },
+        {
+            category: t.skills.categories.frontend,
+            color: '#3b82f6',
+            items: [
+                { name: 'React JS', level: 90 },
+                { name: 'JavaScript / ES6+', level: 92 },
+                { name: 'HTML5 / CSS3', level: 88 },
+                { name: 'Web Design', level: 78 },
+            ],
+        },
+        {
+            category: t.skills.categories.architecture,
+            color: '#06b6d4',
+            items: [
+                { name: 'Software Architecture', level: 95 },
+                { name: 'Business Software Solutions', level: 94 },
+                { name: 'Enterprise Integration', level: 90 },
+                { name: 'Technical Leadership', level: 92 },
+            ],
+        },
+        {
+            category: t.skills.categories.devops,
+            color: '#10b981',
+            items: [
+                { name: 'Docker / Containers', level: 85 },
+                { name: 'Git / GitHub', level: 95 },
+                { name: 'Cloud Services', level: 80 },
+                { name: 'Agile / Scrum', level: 90 },
+            ],
+        },
+    ];
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -71,12 +73,14 @@ export default function Skills() {
     return (
         <section id="skills" className="section skills" ref={sectionRef}>
             <div className="container">
-                <p className="section-label">What I know</p>
-                <h2 className="section-title">Technical <span className="gradient-text">Skills</span></h2>
+                <p className="section-label">{t.skills.sectionLabel}</p>
+                <h2 className="section-title">
+                    {t.skills.titleStart} <span className="gradient-text">{t.skills.titleGradient}</span>
+                </h2>
                 <div className="section-divider" />
 
                 <div className="skills__grid">
-                    {SKILLS.map(({ category, color, items }) => (
+                    {skillsData.map(({ category, color, items }) => (
                         <div className="skills__group card" key={category}>
                             <h3 className="skills__category" style={{ color }}>{category}</h3>
                             <div className="skills__bars">

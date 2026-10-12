@@ -1,94 +1,125 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Code2 } from 'lucide-react';
+import { Menu, X, Code2, Globe } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 import './Navbar.css';
 
-const NAV_LINKS = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Services', href: '#services' },
-  { label: 'Contact', href: '#contact' },
-];
-
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+    const { lang, setLang, t } = useLanguage();
+    const [scrolled, setScrolled] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 50);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-  const handleNavClick = (href) => {
-    setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+    const handleNavClick = (href) => {
+        setMenuOpen(false);
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+    };
 
-  return (
-    <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
-      <div className="container navbar__inner">
-        {/* Logo */}
-        <a className="navbar__logo" href="#hero" onClick={(e) => { e.preventDefault(); handleNavClick('#hero'); }}>
-          <div className="navbar__logo-icon">
-            <Code2 size={18} />
-          </div>
-          <span className="navbar__logo-text">PEREZOFT</span>
-        </a>
+    const navLinks = [
+        { label: t.nav.about, href: '#about' },
+        { label: t.nav.experience, href: '#experience' },
+        { label: t.nav.skills, href: '#skills' },
+        { label: t.nav.projects, href: '#projects' },
+        { label: t.nav.services, href: '#services' },
+        { label: t.nav.contact, href: '#contact' },
+    ];
 
-        {/* Desktop Links */}
-        <ul className="navbar__links">
-          {NAV_LINKS.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                className="navbar__link"
-                onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+    const renderLangSwitch = (isMobile = false) => (
+        <div className={`navbar__lang-switch ${isMobile ? 'navbar__lang-switch--mobile' : ''}`}>
+            <Globe size={14} className="navbar__lang-icon" />
+            <button
+                type="button"
+                className={`navbar__lang-btn ${lang === 'en' ? 'navbar__lang-btn--active' : ''}`}
+                onClick={() => setLang('en')}
+                aria-label="Switch language to English"
+            >
+                EN
+            </button>
+            <span className="navbar__lang-divider">|</span>
+            <button
+                type="button"
+                className={`navbar__lang-btn ${lang === 'es' ? 'navbar__lang-btn--active' : ''}`}
+                onClick={() => setLang('es')}
+                aria-label="Cambiar idioma a Español"
+            >
+                ES
+            </button>
+        </div>
+    );
 
-        {/* CTA */}
-        <a
-          href="#contact"
-          className="btn btn-primary navbar__cta"
-          onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
-        >
-          Hire Me
-        </a>
+    return (
+        <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
+            <div className="container navbar__inner">
+                {/* Logo */}
+                <a className="navbar__logo" href="#hero" onClick={(e) => { e.preventDefault(); handleNavClick('#hero'); }}>
+                    <div className="navbar__logo-icon">
+                        <Code2 size={18} />
+                    </div>
+                    <span className="navbar__logo-text">PEREZOFT</span>
+                </a>
 
-        {/* Mobile Toggle */}
-        <button className="navbar__toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </div>
+                {/* Desktop Links */}
+                <ul className="navbar__links">
+                    {navLinks.map((link) => (
+                        <li key={link.href}>
+                            <a
+                                href={link.href}
+                                className="navbar__link"
+                                onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                            >
+                                {link.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
 
-      {/* Mobile Menu */}
-      <div className={`navbar__mobile ${menuOpen ? 'navbar__mobile--open' : ''}`}>
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            className="navbar__mobile-link"
-            onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-          >
-            {link.label}
-          </a>
-        ))}
-        <a
-          href="#contact"
-          className="btn btn-primary"
-          style={{ alignSelf: 'flex-start', marginTop: '8px' }}
-          onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
-        >
-          Hire Me
-        </a>
-      </div>
-    </nav>
-  );
+                {/* Language Switcher Desktop */}
+                {renderLangSwitch(false)}
+
+                {/* CTA Desktop */}
+                <a
+                    href="#contact"
+                    className="btn btn-primary navbar__cta"
+                    onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
+                >
+                    {t.nav.hireMe}
+                </a>
+
+                {/* Mobile Toggle */}
+                <button className="navbar__toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+                    {menuOpen ? <X size={22} /> : <Menu size={22} />}
+                </button>
+            </div>
+
+            {/* Mobile Menu */}
+            <div className={`navbar__mobile ${menuOpen ? 'navbar__mobile--open' : ''}`}>
+                <div className="navbar__mobile-header">
+                    {renderLangSwitch(true)}
+                </div>
+                {navLinks.map((link) => (
+                    <a
+                        key={link.href}
+                        href={link.href}
+                        className="navbar__mobile-link"
+                        onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                    >
+                        {link.label}
+                    </a>
+                ))}
+                <a
+                    href="#contact"
+                    className="btn btn-primary"
+                    style={{ alignSelf: 'flex-start', marginTop: '12px' }}
+                    onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
+                >
+                    {t.nav.hireMe}
+                </a>
+            </div>
+        </nav>
+    );
 }

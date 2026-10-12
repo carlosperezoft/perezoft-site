@@ -1,41 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 import './Experience.css';
 
-const EXPERIENCE = [
-    {
-        role: 'Technical Leader',
-        company: 'LPG Group',
-        period: '2022 – Present',
-        location: 'Medellín, Colombia · Remote',
-        description:
-            'Leading engineering teams to design, develop, and deploy complex business software solutions. Responsible for software architecture decisions, code reviews, technical roadmap, and aligning technology strategy with business goals.',
-        tags: ['Java', 'Spring Boot', 'Microservices', 'Software Architecture', 'Technical Leadership'],
-        current: true,
-    },
-    {
-        role: 'Software Developer & Founder',
-        company: 'PEREZOFT / Efecto Byte S.A.S.',
-        period: '2018 – Present',
-        location: 'Medellín, Colombia',
-        description:
-            'Founded PEREZOFT to provide specialized business software consulting and development. Delivering full-stack solutions including enterprise Java backends, React frontends, REST/GraphQL APIs, and cloud-deployed microservices for clients across various industries.',
-        tags: ['Java', 'Spring Boot', 'React JS', 'GraphQL', 'Docker', 'Consulting'],
-        current: true,
-    },
-    {
-        role: 'Software Engineer',
-        company: 'Previous Roles (11+ positions)',
-        period: '~2012 – 2022',
-        location: 'Antioquia, Colombia',
-        description:
-            'Over a decade of progressive software engineering experience across multiple companies and roles in the Colombian tech ecosystem. Developed enterprise applications, business integrations, and custom software solutions using Java, Spring, and web technologies.',
-        tags: ['Java', 'Enterprise Software', 'Business Software Solutions', 'Web Development'],
-        current: false,
-    },
-];
-
 export default function Experience() {
+    const { t } = useLanguage();
     const sectionRef = useRef(null);
 
     useEffect(() => {
@@ -50,19 +19,21 @@ export default function Experience() {
     return (
         <section id="experience" className="section experience" ref={sectionRef}>
             <div className="container">
-                <p className="section-label">Career Path</p>
-                <h2 className="section-title">Professional <span className="gradient-text">Experience</span></h2>
+                <p className="section-label">{t.experience.sectionLabel}</p>
+                <h2 className="section-title">
+                    {t.experience.titleStart} <span className="gradient-text">{t.experience.titleGradient}</span>
+                </h2>
                 <div className="section-divider" />
 
                 <div className="exp__timeline">
-                    {EXPERIENCE.map((job, i) => (
+                    {t.experience.jobs.map((job, i) => (
                         <div className="exp__item" key={i} style={{ '--delay': `${i * 0.15}s` }}>
                             <div className="exp__dot">
                                 <div className={`exp__dot-inner ${job.current ? 'exp__dot-inner--active' : ''}`} />
                             </div>
 
                             <div className="exp__card card">
-                                {job.current && <div className="exp__current-badge">Current</div>}
+                                {job.current && <div className="exp__current-badge">{t.experience.currentBadge}</div>}
 
                                 <div className="exp__header">
                                     <div>
@@ -87,8 +58,8 @@ export default function Experience() {
                                 <p className="exp__desc">{job.description}</p>
 
                                 <div className="exp__tags">
-                                    {job.tags.map((t) => (
-                                        <span key={t} className="tech-badge">{t}</span>
+                                    {job.tags.map((tag) => (
+                                        <span key={tag} className="tech-badge">{tag}</span>
                                     ))}
                                 </div>
                             </div>
@@ -98,23 +69,15 @@ export default function Experience() {
 
                 {/* Education */}
                 <div className="exp__education">
-                    <h3 className="exp__edu-title gradient-text">Academic Background</h3>
+                    <h3 className="exp__edu-title gradient-text">{t.experience.academicTitle}</h3>
                     <div className="exp__edu-grid">
-                        <div className="exp__edu-card card">
-                            <div className="exp__edu-degree">Master in Engineering (Informatics)</div>
-                            <div className="exp__edu-school">Universidad de Antioquia</div>
-                            <div className="exp__edu-year">Postgraduate</div>
-                        </div>
-                        <div className="exp__edu-card card">
-                            <div className="exp__edu-degree">Specialist in Software Development</div>
-                            <div className="exp__edu-school">Universidad EAFIT</div>
-                            <div className="exp__edu-year">Specialization</div>
-                        </div>
-                        <div className="exp__edu-card card">
-                            <div className="exp__edu-degree">Systems Engineer</div>
-                            <div className="exp__edu-school">Universidad de Antioquia</div>
-                            <div className="exp__edu-year">Undergraduate</div>
-                        </div>
+                        {t.experience.degrees.map((edu, i) => (
+                            <div className="exp__edu-card card" key={i}>
+                                <div className="exp__edu-degree">{edu.degree}</div>
+                                <div className="exp__edu-school">{edu.school}</div>
+                                <div className="exp__edu-year">{edu.year}</div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

@@ -1,19 +1,22 @@
 import { Code2, Github, Linkedin, Mail, Heart } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 import './Footer.css';
 
-const FOOTER_LINKS = [
-    { label: 'About', href: '#about' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Services', href: '#services' },
-    { label: 'Contact', href: '#contact' },
-];
-
 export default function Footer() {
+    const { t } = useLanguage();
+
     const scrollTo = (href) => {
         document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     };
+
+    const footerLinks = [
+        { label: t.nav.about, href: '#about' },
+        { label: t.nav.experience, href: '#experience' },
+        { label: t.nav.skills, href: '#skills' },
+        { label: t.nav.projects, href: '#projects' },
+        { label: t.nav.services, href: '#services' },
+        { label: t.nav.contact, href: '#contact' },
+    ];
 
     return (
         <footer className="footer">
@@ -27,7 +30,7 @@ export default function Footer() {
                         <span className="footer__logo-text">PEREZOFT</span>
                     </div>
                     <p className="footer__tagline">
-                        Crafting digital products that make a difference.
+                        {t.footer.tagline}
                     </p>
                     <div className="footer__socials">
                         <a href="https://github.com/carlosperezoft" target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="GitHub">
@@ -43,10 +46,10 @@ export default function Footer() {
                 </div>
 
                 <div className="footer__nav">
-                    <h4 className="footer__nav-title">Navigation</h4>
+                    <h4 className="footer__nav-title">{t.footer.navTitle}</h4>
                     <ul className="footer__nav-links">
-                        {FOOTER_LINKS.map((link) => (
-                            <li key={link.label}>
+                        {footerLinks.map((link) => (
+                            <li key={link.href}>
                                 <a
                                     href={link.href}
                                     className="footer__nav-link"
@@ -60,17 +63,17 @@ export default function Footer() {
                 </div>
 
                 <div className="footer__contact">
-                    <h4 className="footer__nav-title">Contact</h4>
+                    <h4 className="footer__nav-title">{t.footer.contactTitle}</h4>
                     <p className="footer__contact-email">carlos.perezoft@gmail.com</p>
-                    <p className="footer__contact-note">
-                        Available for freelance<br />& consulting work.
+                    <p className="footer__contact-note" style={{ whiteSpace: 'pre-line' }}>
+                        {t.footer.contactNote}
                     </p>
                     <a
                         href="#contact"
                         className="btn btn-primary footer__cta"
                         onClick={(e) => { e.preventDefault(); scrollTo('#contact'); }}
                     >
-                        Get in Touch
+                        {t.footer.cta}
                     </a>
                 </div>
             </div>
@@ -78,10 +81,10 @@ export default function Footer() {
             <div className="footer__bottom">
                 <div className="container footer__bottom-inner">
                     <p className="footer__copy">
-                        © {new Date().getFullYear()} PEREZOFT. All rights reserved.
+                        © {new Date().getFullYear()} PEREZOFT. {t.footer.copyright}
                     </p>
                     <p className="footer__made">
-                        Made with <Heart size={12} className="footer__heart" /> by Carlos Perez
+                        {t.footer.madeWith} <Heart size={12} className="footer__heart" /> {t.footer.by}
                     </p>
                 </div>
             </div>
